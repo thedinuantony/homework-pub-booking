@@ -36,8 +36,13 @@ STARTER_DIR = REPO_ROOT / "starter"
 
 
 def _run(cmd: list[str], timeout: int = 120) -> tuple[int, str, str]:
+    import os
+
+    env = dict(os.environ, PYTHONPATH=".")
     try:
-        r = subprocess.run(cmd, cwd=REPO_ROOT, capture_output=True, text=True, timeout=timeout)
+        r = subprocess.run(
+            cmd, cwd=REPO_ROOT, capture_output=True, text=True, timeout=timeout, env=env
+        )
         return r.returncode, r.stdout, r.stderr
     except subprocess.TimeoutExpired:
         return 124, "", f"timed out after {timeout}s"

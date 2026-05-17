@@ -160,7 +160,7 @@ verify: ## Run preflight + a real 1-token LLM call; prints green ✓ or points y
 
 .PHONY: test
 test: ## Run the public test suite (pass = you're on track)
-	@$(UV) run pytest tests/public -v
+	@PYTHONPATH=. $(UV) run pytest tests/public -v
 
 .PHONY: test-all
 test-all: ## Run public + private tests (private tests only exist in the grader CI environment)
